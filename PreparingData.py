@@ -18,9 +18,9 @@ for i in range(1,33):
     for j in range(4):
         Y = labels[i-1][j]
         Y = pandas.Series(Y)
-        Y.to_csv('convertedData\\label'+str(j)+'.csv', mode='a', index=False)
+        Y.to_csv(mypath+'convertedData\\label'+str(j)+'.csv', mode='a', index=False)
     for k in range(40):
         X = data["data"][k][:][:]
         X = pandas.DataFrame(X)
-        X.to_csv('convertedData\\'+name+'.csv', mode='a', index=False)
+        X.to_csv(mypath+'convertedData\\'+name+'.csv', mode='a', index=False)
 
