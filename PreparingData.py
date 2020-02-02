@@ -20,7 +20,7 @@ for i in range(1,33):
         Y = pandas.Series(Y)
         Y.to_csv(mypath+'convertedData\\label'+str(j)+'.csv', mode='a', index=False)
     for k in range(40):
-        X = data["data"][k][:][:]
+        X = data["data"][k][1:33][:]
         X = pandas.DataFrame(X)
         X.to_csv(mypath+'convertedData\\'+name+'.csv', mode='a', index=False)
 
