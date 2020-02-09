@@ -15,12 +15,11 @@ for i in range(1,33):
     f = open(mypath+name+".dat", 'rb')
     data = pickle.load(f, encoding='latin1')
     labels = data["labels"]
-    for j in range(4):
-        Y = labels[i-1][j]
-        Y = pandas.Series(Y)
-        Y.to_csv('convertedData\\label'+str(j)+'.csv', mode='a', index=False)
     for k in range(40):
         X = data["data"][k][:][:]
         X = pandas.DataFrame(X)
-        X.to_csv('convertedData\\'+name+'.csv', mode='a', index=False)
-
+        X.to_csv(mypath+'convertedData\\'+name+'.csv', mode='a', index=False)
+        for j in range(4):
+            Y = labels[k][j]
+            Y = pandas.Series(Y)
+            Y.to_csv(mypath + 'convertedData\\label' + str(j) + '.csv', mode='a', index=False)
