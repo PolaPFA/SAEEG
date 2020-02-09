@@ -1,4 +1,4 @@
-import pickle
+ import pickle
 import pandas
 
 #Ser the dataset path here (.dat) files
@@ -19,7 +19,3 @@ for i in range(1,33):
         X = data["data"][k][:][:]
         X = pandas.DataFrame(X)
         X.to_csv(mypath+'convertedData\\'+name+'.csv', mode='a', index=False)
-        for j in range(4):
-            Y = labels[k][j]
-            Y = pandas.Series(Y)
-            Y.to_csv(mypath + 'convertedData\\label' + str(j) + '.csv', mode='a', index=False)
