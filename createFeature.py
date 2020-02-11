@@ -8,6 +8,8 @@ fout_data = open("train.csv",'a')
 mypath = "E:/4 Year/GP/Dataset/DEAP Dataset/data_preprocessed_python/data_preprocessed_python/"
 
 out = []
+out2=[]
+out3=[]
 for i in range(32):
     if i < 10:
         name = '%0*d' % (2,i+1)
@@ -72,7 +74,7 @@ for i in range(32):
             temp2.append(cD4)
             temp2.append(cD5)
             if c == 1319:
-                out.append(temp2)
+                out2.append(temp2)
                 temp2 = []
             c += 1
     with open(fnameSlow) as f:
@@ -100,8 +102,12 @@ for i in range(32):
             temp2.append(cD4)
             temp2.append(cD5)
             if c == 1319:
-                out.append(temp2)
+                out3.append(temp2)
                 temp2 = []
             c += 1
 out_data = pandas.DataFrame(out)
 out_data.to_csv(mypath + 'features.csv', mode='w', index=False)
+out_data2 = pandas.DataFrame(out2)
+out_data2.to_csv(mypath + 'features.csv', mode='a', index=False)
+out_data3 = pandas.DataFrame(out3)
+out_data3.to_csv(mypath + 'features.csv', mode='a', index=False)
