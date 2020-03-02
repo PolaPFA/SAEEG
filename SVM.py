@@ -1,4 +1,4 @@
-import  csv
+import csv
 from sklearn import svm
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
@@ -31,7 +31,7 @@ clf.fit(X_train, Y_train)
 scr = clf.score(X_test, Y_test)
 print('Accuracy : ', scr)
 predict_val = clf.predict(X_test)
-from sklearn.metrics import classification_report, confusion_matrix
+
 print(confusion_matrix(Y_test,predict_val))
 print(classification_report(Y_test,predict_val))
 

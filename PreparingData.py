@@ -1,4 +1,4 @@
- import pickle
+import pickle
 import pandas
 
 #Ser the dataset path here (.dat) files
@@ -15,7 +15,7 @@ for i in range(1,33):
     f = open(mypath+name+".dat", 'rb')
     data = pickle.load(f, encoding='latin1')
     labels = data["labels"]
-    for k in range(40):
+    for k in range(33):
         X = data["data"][k][:][:]
         X = pandas.DataFrame(X)
         X.to_csv(mypath+'convertedData\\'+name+'.csv', mode='a', index=False)
