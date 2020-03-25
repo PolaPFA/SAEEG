@@ -50,4 +50,4 @@ for i in range(32):
             c +=1
    # data_row = pandas.Series(np.asarray(data_row).flatten())
 fout_data = pandas.DataFrame(fout_data)
-fout_data.to_csv('trainARM2.csv','w',index=False)
+fout_data.to_csv('trainARM2.csv',mode= 'w',index=False)
