@@ -2,10 +2,11 @@ import pickle
 import pandas
 
 #Ser the dataset path here (.dat) files
-mypath = "E:\\College\\Graduation Project\\Dataset\\DEAP Dataset\\data_preprocessed_python\\data\\"
+mypath = "G:\\Datasets&GP\\DEAP\\data_preprocessed_python\\"
 
 #Converting each file to csv file
 for i in range(1,33):
+    t=0
     name = ""
     if i < 10:
         name = "s0" + str(i)
@@ -15,10 +16,16 @@ for i in range(1,33):
     f = open(mypath+name+".dat", 'rb')
     data = pickle.load(f, encoding='latin1')
     labels = data["labels"]
-    for k in range(33):
+    electrode =[0,1,2,3,4,5,24,25,26,27,28,29]
+    for k in electrode:
         X = data["data"][k][:][:]
         X = pandas.DataFrame(X)
-        X.to_csv(mypath+'convertedData\\'+name+'.csv', mode='a', index=False)
+        if t==0:
+            X.to_csv(mypath+'convertedData\\'+name+"Frontal"+'.csv', mode='a', index=False)
+            t+=1
+        else:
+            X.to_csv(mypath + 'convertedData\\' + name+"Frontal" + '.csv', mode='a', index=False,header= False)
+
 
         for j in range(4):
             Y = labels[k][j]
