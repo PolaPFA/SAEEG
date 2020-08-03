@@ -13,7 +13,9 @@ import os
 # define the name of the directory to be created
 
 
-mypath="G:\\Datasets&GP\\DEAP\\data_preprocessed_python\\convertedData\\"
+#mypath="G:\\Datasets&GP\\DEAP\\data_preprocessed_python\\convertedData\\"
+mypath = "E:\\College\\Graduation Project\\Dataset\\DEAP Dataset\\data_preprocessed_python\\data\\convertedData\\"
+
 X = []
 Y0= []
 Y1=[]
@@ -45,9 +47,9 @@ for i in range(1):
 for i in range(1,33):
     name = ""
     if i < 10:
-        name = "s0" + str(i)+"Frontal"
+        name = mypath + "s0" + str(i)+"Frontal"
     else:
-        name = "s" + str(i)+"Frontal"
+        name = mypath + "s" + str(i)+"Frontal"
     print(name)
     with open(name+".csv") as f:
         reader = csv.DictReader(f)  # read rows into a dictionary format
@@ -187,7 +189,7 @@ for train, test in Kfold.split(X, Y0):
         current_y=np.expand_dims(Y0_train, axis = 0)
         current_y = np.transpose(current_y, (1, 0))
         print(current_y.shape)
-        folds_0[itr][i].fit(current_x, current_y, epochs=100)
+        folds_0[itr][i].fit(current_x, current_y, epochs=50)
         current_x = X0_test[i]
         current_x = np.expand_dims(current_x, axis=1)
         current_x = np.transpose(current_x, (0, 2, 1))
@@ -198,7 +200,7 @@ for train, test in Kfold.split(X, Y0):
         #dump(folds_0[itr][i], "ModelsandData/folds_0 electrode"+str(i+1)+"fold"+str(itr+1) +".joblib")
         path = "ModelsandData/folds_0 electrode"+str(i+1)+"fold"+str(itr+1)
         os.mkdir(path)
-        folds_0[itr][i].save('ModelsandData/folds_0 electrode'+str(i+1)+"fold"+str(itr+1))
+        folds_0[itr][i].save('ModelsandData/folds_0 electrode'+str(i+1)+"fold"+str(itr+1)+".joblib")
 
     itr+=1
 
@@ -224,7 +226,7 @@ for train, test in Kfold.split(X, Y1):
         current_y = np.expand_dims(Y1_train, axis=0)
         current_y = np.transpose(current_y, (1, 0))
         print(current_y.shape)
-        folds_1[itr,i].fit(current_x, current_y, epochs=100)
+        folds_1[itr,i].fit(current_x, current_y, epochs=50)
         current_x = X1_test[i]
         current_x = np.expand_dims(current_x, axis=1)
         current_x = np.transpose(current_x, (0, 2, 1))

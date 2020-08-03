@@ -2,7 +2,8 @@ import pickle
 import pandas
 
 #Ser the dataset path here (.dat) files
-mypath = "G:\\Datasets&GP\\DEAP\\data_preprocessed_python\\"
+#mypath = "G:\\Datasets&GP\\DEAP\\data_preprocessed_python\\"
+mypath = "E:\\College\\Graduation Project\\Dataset\\DEAP Dataset\\data_preprocessed_python\\data\\"
 
 #Converting each file to csv file
 for i in range(1,33):
