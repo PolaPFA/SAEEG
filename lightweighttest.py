@@ -1,16 +1,16 @@
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import StratifiedKFold
 from joblib import dump, load
-import  keras
+from tensorflow import keras
 import joblib
-import  csv
+import csv
 
 import os
 test=[]
 
 for i in range(10):
     string = "fold0_"
-    test.append(joblib.load("ModelsandDataM\\"+string+"test_"+str(i+1)+" .joblib"))
+    test.append(joblib.load("ModelsandData\\"+string+"test_"+str(i+1)+" .joblib"))
 flat_list = []
 for sublist in test:
     for item in sublist:
@@ -49,9 +49,9 @@ for i in range(1):
 for i in range(1,33):
     name = ""
     if i < 10:
-        name = "s0" + str(i)+"Frontal"
+        name =  "E:\\College\\Graduation Project\\Dataset\\DEAP Dataset\\data_preprocessed_python\\data\\convertedData\\s0" + str(i)+"Frontal"
     else:
-        name = "s" + str(i)+"Frontal"
+        name = "E:\\College\\Graduation Project\\Dataset\\DEAP Dataset\\data_preprocessed_python\\data\\convertedData\\s" + str(i)+"Frontal"
     print(name)
     with open(name+".csv") as f:
         reader = csv.DictReader(f)  # read rows into a dictionary format
@@ -86,7 +86,7 @@ for item in res:
         electrode=[]
         for j in range(10):
             string="folds_0 "
-            Model= joblib.load("ModelsandDataM\\"+string+"electrode"+str(i+1)+"fold"+str(j+1)+".joblib")
+            Model= keras.models.load_model("ModelsandData\\"+string+"electrode"+str(i+1)+"fold"+str(j+1)+".joblib")
             temp= Model.predict(X[item])
             electrode.append(temp)
         val =maxvote(electrode)

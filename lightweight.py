@@ -63,7 +63,7 @@ for i in range(1,33):
                 X.append(temprow.copy())
                 temprow.clear()
             itr+=1
-
+print(X.shape)
 model = tf.keras.models.Sequential()
 
 l1=tf.keras.layers.Conv1D( filters=32, kernel_size=5,input_shape=(8064,1),strides=3)
@@ -167,11 +167,17 @@ dump(X1_test_all,"ModelsandData/X1_test_all .joblib")
 dump(Y1_test_all,"ModelsandData/Y1_test_all .joblib")
 '''
 
-Kfold = StratifiedKFold(n_splits=10, shuffle=True)
+X0_train_all, X0_test_all, Y0_train_all, Y0_test_all = train_test_split(X, Y0, shuffle=False, random_state=32,test_size=0.2)
+dump(X0_test_all,"ModelsandData/X0_test_all .joblib")
+dump(Y0_test_all,"ModelsandData/Y0_test_all .joblib")
+
+
+#Kfold = StratifiedKFold(n_splits=1 , shuffle=True)
 scores_0 = []
 itr = 0
-for train, test in Kfold.split(X, Y0):
 
+#for train, test in Kfold.split(X, Y0):
+for train, test in X0_train_all, Y0_train_all:
     dump(test, 'ModelsandData/fold0_test_'+str(itr+1)+" .joblib")
     X0_train =np.array(X)[train.astype(int)]
     X0_test = np.array(X)[test.astype(int)]
@@ -204,7 +210,7 @@ for train, test in Kfold.split(X, Y0):
 
     itr+=1
 
-
+'''
 channel_models_1 = []
 itr=0
 for train, test in Kfold.split(X, Y1):
@@ -237,10 +243,12 @@ for train, test in Kfold.split(X, Y1):
         #dump(folds_1[itr,i], "ModelsandData/folds_1 electrode"+str(i+1)+"fold"+str(itr+1)+".joblib")
         path = "ModelsandData/folds_1 electrode" + str(i + 1) + "fold" + str(itr + 1)
         os.mkdir(path)
-        folds_1[itr][i].save('ModelsandData/folds_1 electrode' + str(i + 1) + "fold" + str(itr + 1))
+        #folds_1[itr][i].save('ModelsandData/folds_1 electrode' + str(i + 1) + "fold" + str(itr + 1))
+        folds_1[itr][i].save_weights('ModelsandData/folds_1 electrode' + str(i + 1) + "fold" + str(itr + 1) + ".h5")
 
     itr+=1
 
+'''
 '''
     X1_train = np.transpose(X1_train, (1, 0, 2))
 
