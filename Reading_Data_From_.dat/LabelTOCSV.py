@@ -18,20 +18,12 @@ for i in range(1,33):
     data = pickle.load(f, encoding='latin1')
     labels = data["labels"]
     #no of electrode
-    for k in range(33):
-        X = data["data"][k][:][:]
-        X = pandas.DataFrame(X)
-        if t==0:
-            X.to_csv(mypath+'convertedData\\Allelectrodes\\'+name+'.csv', mode='a', index=False)
-            t+=1
-        else:
-            X.to_csv(mypath + 'convertedData\\Allelectrodes\\' + name + '.csv', mode='a', index=False,header= False)
 
         #Labels
-    for i in range(40)  :
+    for k in range(40)  :
 
         for j in range(4):
-            Y = labels[i][j]
+            Y = labels[k][j]
             Y = pandas.Series(Y)
 
             if i==0:
