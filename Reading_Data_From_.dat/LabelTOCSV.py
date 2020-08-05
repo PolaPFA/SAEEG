@@ -26,7 +26,7 @@ for i in range(1,33):
             Y = labels[k][j]
             Y = pandas.Series(Y)
 
-            if i==0:
+            if i==1:
                 Y.to_csv(mypath+'convertedData\\label'+str(j)+'.csv', mode='a', index=False)
             else:
                 Y.to_csv(mypath+'convertedData\\label'+str(j)+'.csv', mode='a', index=False,header=False)
