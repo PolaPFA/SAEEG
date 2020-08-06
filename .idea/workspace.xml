@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="03a54a2d-8f3a-439a-9649-b97e87d0d049" name="Default Changelist" comment="" />
+    <list default="true" id="03a54a2d-8f3a-439a-9649-b97e87d0d049" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/SAEEG.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SAEEG.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN-Organized.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN-Organized.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,8 +30,8 @@
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.CNN-Organized">
-    <configuration name="CNN-Organized" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.Raw+Aug_CNN">
+    <configuration name="EMDAugmentation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="SAEEG" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -39,7 +43,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CNN-Organized.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/EMDAugmentation.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -48,7 +52,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="PreparingData" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Lightweight_Organized" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="SAEEG" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -60,7 +64,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PreparingData.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Lightweight_Organized.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -69,7 +73,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="createPSDFeatures" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="NewCNN" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="SAEEG" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -81,7 +85,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/createPSDFeatures.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NewCNN.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -90,7 +94,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="lightweight" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Raw+Aug_CNN" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="SAEEG" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -102,7 +106,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lightweight.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Raw+Aug_CNN.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -111,7 +115,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="lightweighttest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="createDatawithAugmentation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="SAEEG" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -123,7 +127,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lightweighttest.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/createDatawithAugmentation.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -134,11 +138,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.CNN-Organized" />
-        <item itemvalue="Python.lightweight" />
-        <item itemvalue="Python.lightweighttest" />
-        <item itemvalue="Python.PreparingData" />
-        <item itemvalue="Python.createPSDFeatures" />
+        <item itemvalue="Python.Raw+Aug_CNN" />
+        <item itemvalue="Python.EMDAugmentation" />
+        <item itemvalue="Python.Lightweight_Organized" />
+        <item itemvalue="Python.NewCNN" />
+        <item itemvalue="Python.createDatawithAugmentation" />
       </list>
     </recent_temporary>
   </component>
@@ -156,42 +160,50 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1899" height="368" key="GridCell.Tab.0.bottom" timestamp="1596486329258">
+    <state x="739" y="275" key="FileChooserDialogImpl" timestamp="1596709596924">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="368" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1596486329258" />
-    <state width="1899" height="368" key="GridCell.Tab.0.center" timestamp="1596486329258">
+    <state x="739" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1596709596924" />
+    <state width="1899" height="368" key="GridCell.Tab.0.bottom" timestamp="1596752954906">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="368" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1596486329258" />
-    <state width="1899" height="368" key="GridCell.Tab.0.left" timestamp="1596486329258">
+    <state width="1899" height="368" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1596752954906" />
+    <state width="1899" height="368" key="GridCell.Tab.0.center" timestamp="1596752954906">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="368" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1596486329258" />
-    <state width="1899" height="368" key="GridCell.Tab.0.right" timestamp="1596486329258">
+    <state width="1899" height="368" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1596752954906" />
+    <state width="1899" height="368" key="GridCell.Tab.0.left" timestamp="1596752954906">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="368" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1596486329258" />
-    <state width="1899" height="368" key="GridCell.Tab.1.bottom" timestamp="1596486329259">
+    <state width="1899" height="368" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1596752954906" />
+    <state width="1899" height="368" key="GridCell.Tab.0.right" timestamp="1596752954906">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="368" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1596486329259" />
-    <state width="1899" height="368" key="GridCell.Tab.1.center" timestamp="1596486329258">
+    <state width="1899" height="368" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1596752954906" />
+    <state width="1899" height="368" key="GridCell.Tab.1.bottom" timestamp="1596752954907">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="368" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1596486329258" />
-    <state width="1899" height="368" key="GridCell.Tab.1.left" timestamp="1596486329258">
+    <state width="1899" height="368" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1596752954907" />
+    <state width="1899" height="368" key="GridCell.Tab.1.center" timestamp="1596752954906">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="368" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1596486329258" />
-    <state width="1899" height="368" key="GridCell.Tab.1.right" timestamp="1596486329259">
+    <state width="1899" height="368" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1596752954906" />
+    <state width="1899" height="368" key="GridCell.Tab.1.left" timestamp="1596752954906">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="368" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1596486329259" />
-    <state x="461" y="165" key="SettingsEditor" timestamp="1596273304958">
+    <state width="1899" height="368" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1596752954906" />
+    <state width="1899" height="368" key="GridCell.Tab.1.right" timestamp="1596752954907">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1596273304958" />
+    <state width="1899" height="368" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1596752954907" />
+    <state x="461" y="165" key="SettingsEditor" timestamp="1596738023658">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1596738023658" />
+    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1596555002777">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1596555002777" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1596484826789">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -211,14 +223,14 @@
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/CNN-Organized.py</url>
-          <line>142</line>
-          <option name="timeStamp" value="13" />
+          <url>file://$PROJECT_DIR$/NewCNN.py</url>
+          <line>126</line>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/CNN-Organized.py</url>
-          <line>140</line>
-          <option name="timeStamp" value="15" />
+          <url>file://$PROJECT_DIR$/Raw+Aug_CNN.py</url>
+          <line>109</line>
+          <option name="timeStamp" value="46" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -8,30 +8,33 @@ from sklearn.model_selection import StratifiedKFold
 from joblib import dump, load
 import os
 
-
 data_path = "E:\\College\\Graduation Project\\Dataset\\DEAP Dataset\\data_preprocessed_python\\data\\convertedData\\"
+#data_path = "G:\\Datasets&GP\\DEAP\\data_preprocessed_python\\convertedData\\"
 
 def get_model():
     model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.Conv1D(filters=32, kernel_size=5, input_shape=(8064, 1), strides=3))
-    model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=(3, 3), input_shape=input_shape))
+    #model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
-    model.add(tf.keras.layers.Conv1D(filters=24, kernel_size=3, strides=2))
-    model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.MaxPool2D())
+    #model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3, 3)))
+    #model.add(tf.keras.layers.BatchNormalization())
+    #model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
+    #model.add(tf.keras.layers.MaxPool2D(pool_size=(2,2), strides=2))
+    model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3, 3)))
+    #model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
-    model.add(tf.keras.layers.Conv1D(filters=16, kernel_size=3, strides=2))
-    model.add(tf.keras.layers.BatchNormalization())
-    model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
-    model.add(tf.keras.layers.Conv1D(filters=8, kernel_size=5, strides=3))
-    model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.MaxPool2D())
+    #model.add(tf.keras.layers.Conv2D(filters=16, kernel_size=(5, 5)))
+    #model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(20, input_shape=(None, None, 20), activation='relu'))
+    model.add(tf.keras.layers.Dense(20, activation='relu'))
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(2, activation='sigmoid'))
     model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
-    #model.add(tf.keras.layers.Softmax())
-    return model
+    #model.add(tf.keras.layers.Softmax(axis=-1))
+    return tf.keras.models.clone_model(model)
 
 def read_convert_output(file_name):
     data = []
@@ -45,12 +48,13 @@ def read_convert_output(file_name):
                 data.append(1)
             else:
                 data.append(0)
+    data=np.array(data)
     return data
 
 
 def read_input_data():
     data = []
-    for i in range(1, 6):
+    for i in range(1, 33):
         name = ""
         if i < 10:
             name = data_path + "s0" + str(i) + "Frontal.csv"
@@ -67,13 +71,19 @@ def read_input_data():
                 temprow.append(temp.copy())
                 if itr % 12 == 0:
                     data.append(temprow.copy())
+                    #data.append(convert_input_data(temprow))       #Converting it to 88*88 matrix instead of 1*8064 vector
                     temprow.clear()
                 itr += 1
+    data = np.array(data)
+    print(data.shape)
     return data
 
-def convert_x_dimensions(input):
-    output = np.expand_dims(input, axis=1)
-    return np.transpose(output, (0, 2, 1))
+def convert_x_dimensions(input,itr):
+    output = np.transpose(input, (1, 0, 2))
+    current_x = output[itr]
+    current_x = np.expand_dims(current_x, axis=1)
+    current_x = np.transpose(current_x, (0, 2, 1))
+    return current_x
 
 def convert_y_dimensions(input):
     current_y = np.expand_dims(input, axis=0)
@@ -98,62 +108,67 @@ def initialize_models(number_of_models):
 
     return valence_models, arousal_models
 
-def maxvote(list):
-    output = []
-    for index in list:
-        zerocount = len([list[index] == 0])
-        onecount = len([list[index] == 1])
-        if onecount > zerocount:
-            output.append(1)
-        else:
-            output.append(0)
-    return output
+def convert_input_data(old_data):
+    data = np.array(old_data)
+    #Removing first 3 seconds (Not important)
+    data = data[:, 3*128:]
+    data = np.append(data, data[:, :64], axis=1)
+    data = np.expand_dims(data, axis=2)
+    data = data.reshape((12, 88, 88))
+    return data
+
 
 print('Before reading data')
 X = read_input_data()
+X = np.expand_dims(X, axis=3)
+#X = np.transpose(X, (0, 2, 3, 1))
+print(X.shape)
+
+input_shape = X.shape[1:]
+
 
 print('Before reading logits')
 Y0 = read_convert_output('label0.csv')
 Y1 = read_convert_output('label1.csv')
-
+#Y0 = Y0[:400]
+#Y1 = Y1[:400]
 print('Before getting model')
-cnn_model = get_model()
+cnn_valence_model = get_model()
+cnn_valence_model.build((None,input_shape))
+cnn_valence_model.compile(loss=tf.keras.losses.BinaryCrossentropy(),
+                                optimizer=tf.keras.optimizers.Adam(),
+                                metrics=['acc'])
 
-print('Before initializing models')
-valence_models, arousal_models = initialize_models(12)
+cnn_arousal_model = get_model()
+cnn_arousal_model.build((None, input_shape))
+cnn_arousal_model.compile(loss=tf.keras.losses.BinaryCrossentropy(),
+                                optimizer=tf.keras.optimizers.Adam(),
+                                metrics=['acc'])
+
 
 print('Before splitting')
-X0_train, X0_test, Y0_train, Y0_test = train_test_split(X, Y0[0:200], shuffle=False, random_state=32, test_size=0.2)
-#dump(X0_test, "NewModelsandData/X0_test.joblib")
-#dump(Y0_test, "NewModelsandData/Y0_test.joblib")
+X0_train, X0_test, Y0_train, Y0_test = train_test_split(X, Y0, shuffle=True, random_state=32, test_size=0.2)
 
-X1_train, X1_test, Y1_train, Y1_test = train_test_split(X, Y1[0:200], shuffle=False, random_state=32, test_size=0.2)
-#dump(X1_test, "NewModelsandData/X1_test.joblib")
-#dump(Y1_test, "NewModelsandData/Y1_test.joblib")
 
+X1_train, X1_test, Y1_train, Y1_test = train_test_split(X, Y1, shuffle=True, random_state=32, test_size=0.2)
+
+train_y0 = convert_y_dimensions(Y0_train)
+train_y1 = convert_y_dimensions(Y0_train)
 test_y1 = convert_y_dimensions(Y1_test)
 test_y0 = convert_y_dimensions(Y0_test)
 
-#Training the double models:
-for i in range(12):
-    print('Training Electrode number: ', i+1)
-    train_x0 = convert_x_dimensions(X0_train[i])
-    train_x1 = convert_x_dimensions(X1_train[i])
-    train_y1 = convert_y_dimensions(Y1_train[i])
-    train_y0 = convert_y_dimensions(Y0_train[i])
-    valence_models[i].fit(train_x0[i], Y0_train, epochs=100)
-    arousal_models[i].fit(train_x1[i], Y1_train, epochs=100)
+print(X0_train.shape, X0_test.shape, train_y0.shape, test_y0.shape)
+print(X1_train.shape, X1_test.shape, train_y1.shape, test_y1.shape)
+
+#Training
+cnn_valence_model.fit(X0_train, train_y0, epochs=300)
+cnn_arousal_model.fit(X1_train, train_y1, epochs=300)
 
 #Testing the double models:
-valencies = []
-arousals = []
-for i in range(12):
-    test_x0 = convert_x_dimensions(X0_test[i])
-    test_x1 = convert_x_dimensions(X1_test[i])
-    valencies.append(valence_models[i].predict(test_x0[i]))
-    arousals.append(arousal_models[i].predict(test_x1[i]))
-valencies = maxvote(valencies)
-arousals = maxvote(arousals)
+print('Valence models:')
+print('Train: ', cnn_valence_model.evaluate(X0_train, train_y0))
+print('Test: ', cnn_valence_model.evaluate(X0_test, test_y0))
 
-print('Valence accuracy:', accuracy_score(valencies, Y0_test))
-print('Arousals accuracy:', accuracy_score(arousals, Y1_test))
+print('Arousal models:')
+print('Train: ', cnn_arousal_model.evaluate(X1_train, train_y1))
+print('Test: ', cnn_arousal_model.evaluate(X1_test, test_y1))
