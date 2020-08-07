@@ -13,42 +13,21 @@ data_path = "E:\\College\\Graduation Project\\Dataset\\DEAP Dataset\\data_prepro
 
 def get_model():
     model = tf.keras.models.Sequential()
-
-    model.add(tf.keras.layers.Conv1D(filters=16, kernel_size=3,input_shape=(59, 1), strides=2))
-
+    model.add(tf.keras.layers.Conv1D(filters=32, kernel_size=5, input_shape=(1547, 1), strides=3))
     model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
-    model.add(tf.keras.layers.Dense(20, activation='relu'))
-    model.add(tf.keras.layers.Dense(20, activation='relu'))
-
+    model.add(tf.keras.layers.Conv1D(filters=24, kernel_size=3, strides=2))
+    model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
     model.add(tf.keras.layers.Conv1D(filters=16, kernel_size=3, strides=2))
     model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
-    model.add(tf.keras.layers.Dense(20, activation='relu'))
-    model.add(tf.keras.layers.Dense(20, activation='relu'))
-
-    model.add(tf.keras.layers.Conv1D(filters=16, kernel_size=3, strides=2))
-    model.add(tf.keras.layers.BatchNormalization())
-
-    model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
-    model.add(tf.keras.layers.Dense(20, activation='relu'))
-    model.add(tf.keras.layers.Dense(20, activation='relu'))
-
     model.add(tf.keras.layers.Conv1D(filters=8, kernel_size=5, strides=3))
     model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(30, input_shape=(None, None, 30), activation='relu'))
-    model.add(tf.keras.layers.Dense(30, activation='relu'))
-    model.add(tf.keras.layers.Dense(30, activation='relu'))
+    model.add(tf.keras.layers.Dense(200, input_shape=(None, None, 200), activation='relu'))
     model.add(tf.keras.layers.Dropout(0.5))
-    model.add(tf.keras.layers.Dense(20, activation='relu'))
-    model.add(tf.keras.layers.Dense(20, activation='relu'))
-    model.add(tf.keras.layers.Dropout(0.5))
-    model.add(tf.keras.layers.Dense(10, activation='relu'))
-    model.add(tf.keras.layers.Dense(10, activation='relu'))
-    model.add(tf.keras.layers.Dropout(0.5))
-   # model.add(tf.keras.layers.Dense(2, activation='relu'))
     model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
     #model.add(tf.keras.layers.Softmax())
     return model
@@ -93,14 +72,14 @@ def initialize_models(number_of_models):
 
     for model in range(number_of_models):
         current_model_0 = tf.keras.models.clone_model(cnn_model)
-        current_model_0.compile(loss=tf.keras.losses.mean_squared_error,
-                                optimizer=tf.keras.optimizers.Adam(lr=0.125),
+        current_model_0.compile(loss=tf.keras.losses.MeanSquaredError(),
+                                optimizer=tf.keras.optimizers.RMSprop(lr=0.05),
                                 metrics=['acc'])
         valence_models.append(current_model_0)
 
         current_model_1 = tf.keras.models.clone_model(cnn_model)
-        current_model_1.compile(loss=tf.keras.losses.mean_squared_error,
-                                optimizer=tf.keras.optimizers.RMSprop(lr=0.125),
+        current_model_1.compile(loss=tf.keras.losses.MeanSquaredError(),
+                                optimizer=tf.keras.optimizers.RMSprop(lr=0.05),
                                 metrics=['acc'])
         arousal_models.append(current_model_1)
 
@@ -118,7 +97,7 @@ def maxvote(list):
     return output
 
 print('Before reading data')
-X = read_input_data("WaveletTransform&PowerSpectrumFrontal .csv")
+X = read_input_data("PowerSpectrumDenistyFrontal.csv")
 
 print('Before reading logits')
 Y0 = read_convert_output('label0.csv')
@@ -143,15 +122,17 @@ X1_train, X1_test, Y1_train, Y1_test = train_test_split(X, Y1, shuffle=True, ran
 
 #Training the double models:
 
-
 print('Training Valancy : ')
 X0_train=convert_x_dimensions(X0_train)
+print(X0_train.shape)
 Y0_train=convert_y_dimensions(Y0_train)
-valence_models[0].fit(X0_train, Y0_train, epochs=2000)
+valence_models[0].fit(X0_train, Y0_train, epochs=100)
+
 print('Training Arosal : ')
 X1_train=convert_x_dimensions(X1_train)
+print(X1_train.shape)
 Y1_train=convert_y_dimensions(Y1_train)
-arousal_models[0].fit(X1_train, Y1_train, epochs=2000)
+arousal_models[0].fit(X1_train, Y1_train, epochs=100)
 
 #Testing the double models:
 
@@ -165,142 +146,46 @@ X1_test=convert_x_dimensions(X1_test)
 Y1_test=convert_y_dimensions(Y1_test)
 arousal_models[0].fit(X1_test, Y1_test)
 '''
-Model 
-
-16 filter kernel 3 stride 2
-batch Normalization
+1d Conc 32 filter kernel 5 srtide3
+batch normalizatiom
 activation relu
-
-8  filter kernel 5 stride 3
-batch Normalization
+1d Conc 24 filter kernel 3 srtide2
+batch normalizatiom
 activation relu
-flatten layer
-Dense 30 activation relu
-Dense 30 activation relu
-Dense 30 activation relu
- Drop out 0.5
-Dense 20 activation relu
-Dense 20 activation relu
- Drop out 0.5
- Dense 10 activation relu
-Dense 10 activation relu
- Drop out 0.5
-Dense 1 sigmoid
-
-epoch=2000
-Learning rate =0.125
-Valancy 58.98%
-arosal 60.94%
-______________________________________________________________________________________________________________________
-
-Model 
-
-16 filter kernel 3 stride 2
-batch Normalization
+1d Conc 16 filter kernel 3 srtide2
+batch normalizatiom
 activation relu
-16 filter kernel 3 stride 2
-batch Normalization
+1d Conc 8 filter kernel 5 srtide 3
+batch normalizatiom
 activation relu
-16 filter kernel 3 stride 2
-batch Normalization
-activation relu
-8  filter kernel 5 stride 3
-batch Normalization
-activation relu
-flatten layer
-Dense 30 activation relu
-Dense 30 activation relu
-Dense 30 activation relu
- Drop out 0.5
-Dense 20 activation relu
-Dense 20 activation relu
- Drop out 0.5
- Dense 10 activation relu
-Dense 10 activation relu
- Drop out 0.5
-Dense 1 sigmoid
+flatten
+dense 20  relu
+drop out 0.5
+dense 1 sigmoid
+learning rate= 0.05
+valancy = 60.94%
+arpsal= 56.625%
+___________________________________________________________________________________________________________________________
 
-epoch=2000
-Learning rate =0.125
-Valancy 58.98%
-arosal 54.30%
-
-_______________________________________________________________________________________________________________________
-
-16 filter kernel 3 stride 2
-batch Normalization
+1d Conc 32 filter kernel 5 srtide3
+batch normalizatiom
 activation relu
-Dense 20 activation relu
-Dense 20 activation relu
- Drop out 0.5
-16 filter kernel 3 stride 2
-batch Normalization
+1d Conc 24 filter kernel 3 srtide2
+batch normalizatiom
 activation relu
-16 filter kernel 3 stride 2
-batch Normalization
+1d Conc 16 filter kernel 3 srtide2
+batch normalizatiom
 activation relu
-8  filter kernel 5 stride 3
-batch Normalization
+1d Conc 8 filter kernel 5 srtide 3
+batch normalizatiom
 activation relu
-flatten layer
-Dense 30 activation relu
-Dense 30 activation relu
-Dense 30 activation relu
- Drop out 0.5
-Dense 20 activation relu
-Dense 20 activation relu
- Drop out 0.5
- Dense 10 activation relu
-Dense 10 activation relu
- Drop out 0.5
-Dense 1 sigmoid
-RMS PROP Optimizer
-
-epoch=2000
-Learning rate =0.125
-Valancy 58.98%
-arosal 60.55%
-
-______________________________________________________________________________________________________________________
-
-16 filter kernel 3 stride 2
-batch Normalization
-activation relu
-Dense 20 activation relu
-Dense 20 activation relu
-
-16 filter kernel 3 stride 2
-batch Normalization
-activation relu
-Dense 20 activation relu
-Dense 20 activation relu
-
-16 filter kernel 3 stride 2
-batch Normalization
-activation relu
-Dense 20 activation relu
-Dense 20 activation relu
-
-8  filter kernel 5 stride 3
-batch Normalization
-activation relu
-flatten layer
-Dense 30 activation relu
-Dense 30 activation relu
-Dense 30 activation relu
- Drop out 0.5
-Dense 20 activation relu
-Dense 20 activation relu
- Drop out 0.5
- Dense 10 activation relu
-Dense 10 activation relu
- Drop out 0.5
-Dense 1 sigmoid
-RMS PROP Optimizer
-
-epoch=2000
-Learning rate =0.125
-Valancy 58.98%
-arosal 60.94%
-_______________________________________________________________________________________________________________________
+flatten
+dense 20  relu
+drop out 0.5
+dense 1 sigmoid
+LOSS MEANSQUARE ERROR
+optimizer RSM PROP
+learning rate= 0.05
+valancy = 58.84%
+arpsal= 60.94%
 '''
