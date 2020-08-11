@@ -3,7 +3,6 @@ import pandas
 
 
 mypath = "G:\\Datasets&GP\\DEAP\\data_preprocessed_python\\"
-#mypath = "E:\\College\\Graduation Project\\Dataset\\DEAP Dataset\\data_preprocessed_python\\data\\"
 
 #Converting each file to csv file
 header = 0
