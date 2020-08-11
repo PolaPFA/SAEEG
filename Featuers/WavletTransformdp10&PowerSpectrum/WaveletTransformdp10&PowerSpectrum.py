@@ -42,5 +42,5 @@ for i in range(1,33 ):
 data = np.array(data)
 
 out_data = pandas.DataFrame(data)
-out_data.to_csv( 'WaveletTransform&PowerSpectrum .csv', mode='w', index=False)
+out_data.to_csv( 'WaveletTransform&PowerSpectrumdp10.csv', mode='w', index=False)
 
