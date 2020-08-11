@@ -3,6 +3,7 @@ import pandas
 
 
 mypath = "G:\\Datasets&GP\\DEAP\\data_preprocessed_python\\"
+#mypath = "E:\\College\\Graduation Project\\Dataset\\DEAP Dataset\\data_preprocessed_python\\data\\"
 
 #Converting each file to csv file
 for i in range(1,33):
@@ -26,14 +27,3 @@ for i in range(1,33):
         else:
             X.to_csv(mypath + 'convertedData\\Allelectrodes\\' + name + '.csv', mode='a', index=False,header= False)
 
-        #Labels
-    for i in range(40)  :
-
-        for j in range(4):
-            Y = labels[i][j]
-            Y = pandas.Series(Y)
-
-            if i==0:
-                Y.to_csv(mypath+'convertedData\\label'+str(j)+'.csv', mode='a', index=False)
-            else:
-                Y.to_csv(mypath+'convertedData\\label'+str(j)+'.csv', mode='a', index=False,header=False)
