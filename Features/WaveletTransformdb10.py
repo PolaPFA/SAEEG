@@ -38,6 +38,9 @@ for i in range(1,33 ):
             if itr % 33 == 0:
                 data.append(temprow.copy())
                 temprow.clear()
+            if itr == 1319:
+                data.append(temprow.copy())
+                temprow.clear()
             itr += 1
 data = np.array(data)
 
