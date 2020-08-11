@@ -123,12 +123,7 @@ with open(logFile, 'w') as logf:
         end = i * step + 1
         print('Before reading input')
         X = np.array(read_input(start, end))
-        X_norm = np.zeros(X.shape)
-        for j in range(X.shape[0]):
-            for k in range(X.shape[1]):
-                X_norm[j, k, :, :] = normalize(X[j, k, :, :], axis=0, copy=True)
-
-        X = np.transpose(X_norm, (0, 1, 3, 2))
+        X = np.transpose(X, (0, 1, 3, 2))
 
 
 
