@@ -12,31 +12,21 @@ data_to_be_read = 3
 
 def get_model():
     model = tf.keras.models.Sequential()
-    #model.add(tf.keras.layers.BatchNormalization(input_shape=input_shape))
     model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3, 3), input_shape=input_shape))
     model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
-    #model.add(tf.keras.layers.MaxPool2D())
     model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=(3, 3)))
     model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
-    #model.add(tf.keras.layers.MaxPool2D(pool_size=(2,2), strides=2))
     model.add(tf.keras.layers.Conv2D(filters=16, kernel_size=(3, 3)))
     model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
-    #model.add(tf.keras.layers.MaxPool2D())
     model.add(tf.keras.layers.Conv2D(filters=8, kernel_size=(5, 5)))
     model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
     model.add(tf.keras.layers.Flatten())
-    #model.add(tf.keras.layers.Dropout(0.6))
-    #model.add(tf.keras.layers.Dense(40, activation='relu'))
-    #model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
-    #model.add(tf.keras.layers.Dense(1))
-    #model.add(tf.keras.layers.Activation(tf.keras.activations.sigmoid))
-    #model.add(tf.keras.layers.Softmax(axis=-1))
     return tf.keras.models.clone_model(model)
 
 def read_convert_output(file_name):
@@ -152,19 +142,14 @@ with open(logFile, 'w') as logf:
                                                                 stratify=Y0_main[start-1: end-1])
 
 
-        # train_y0 = convert_y_dimensions(Y0_train)
-        # train_y1 = convert_y_dimensions(Y0_train)
-        # test_y1 = convert_y_dimensions(Y1_test)
-        # test_y0 = convert_y_dimensions(Y0_test)
-
-        # test_x_0.append(X0_test)
-        # test_x_1.append(X1_test)
-        # test_y_0.append(Y0_test)
-        # test_y_1.append(Y1_test)
-
         print(X0_train.shape, X0_test.shape, Y0_train.shape, Y0_test.shape)
         print(X1_train.shape, X1_test.shape, Y1_train.shape, Y1_test.shape)
 
+        '''
+        ###NOTE THAT:
+        If you want to use the Early Stopping uncomment the next line 
+        and add to each fit function this parameter: callbacks=[callback]
+        '''
         #callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=7, restore_best_weights=True)
 
         print('Training...')
@@ -172,6 +157,8 @@ with open(logFile, 'w') as logf:
                           validation_data=(X0_test, Y0_test))
         arousals[i-1].fit(X1_train, Y1_train, epochs=50, batch_size=10,
                           validation_data=(X1_test, Y1_test))
+
+
         logf.write('Person ' + str(i) + '\n')
         logf.write("TrainVal = " + str(valences[i-1].evaluate(X0_train, Y0_train)) +
                    " - TestVal = " + str(valences[i-1].evaluate(X0_test, Y0_test)) + '\n')

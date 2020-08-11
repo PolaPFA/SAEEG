@@ -5,37 +5,29 @@ import csv
 from joblib import dump, load
 from sklearn.model_selection import train_test_split
 
+
+#Remember to adjust the paths before running the program.
 data_path = "E:\\College\\Graduation Project\\Dataset\\DEAP Dataset\\data_preprocessed_python\\data\\augmentedData\\"
 log_path = "Logs\\"
 data_to_be_read = 3
 
 def get_model():
     model = tf.keras.models.Sequential()
-    #model.add(tf.keras.layers.BatchNormalization(input_shape=input_shape))
     model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3, 3), input_shape=input_shape))
     model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
-    #model.add(tf.keras.layers.MaxPool2D())
     model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=(3, 3)))
     model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
-    #model.add(tf.keras.layers.MaxPool2D(pool_size=(2,2), strides=2))
     model.add(tf.keras.layers.Conv2D(filters=16, kernel_size=(3, 3)))
     model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
-    #model.add(tf.keras.layers.MaxPool2D())
     model.add(tf.keras.layers.Conv2D(filters=8, kernel_size=(5, 5)))
     model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation(tf.keras.activations.relu))
     model.add(tf.keras.layers.Flatten())
-    #model.add(tf.keras.layers.Dropout(0.6))
-    #model.add(tf.keras.layers.Dense(40, activation='relu'))
-    #model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
-    #model.add(tf.keras.layers.Dense(1))
-    #model.add(tf.keras.layers.Activation(tf.keras.activations.sigmoid))
-    #model.add(tf.keras.layers.Softmax(axis=-1))
     return tf.keras.models.clone_model(model)
 
 def read_convert_output(file_name):
@@ -113,20 +105,15 @@ print('Before reading Logits')
 Y0_main = read_convert_output('label0.csv')
 Y1_main = read_convert_output('label1.csv')
 
-# X0_trainList = []
 X0_testList = []
-# Y0_trainList = []
 Y0_testList = []
 
-# X1_trainList = []
 X1_testList = []
-# Y1_trainList = []
 Y1_testList = []
 
 
-callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=7, restore_best_weights=True)
+
 step = 40
-#logfile = log_path + 'Raw'
 
 valencies = []
 arousals = []
@@ -139,11 +126,11 @@ for i in range(1,33):
     X = np.transpose(X, (0, 1, 3, 2))
 
     print('Before splitting')
-    X0_train, X0_test, Y0_train, Y0_test = train_test_split(X, Y0_main[start - 1: end - 1], shuffle=True,
+    X0_train, X0_test, Y0_train, Y0_test = train_test_split(X, Y0_main[start - 1: end - 1],
                                                             random_state=1, test_size=0.2,
                                                             stratify=Y0_main[start - 1: end - 1])
 
-    X1_train, X1_test, Y1_train, Y1_test = train_test_split(X, Y1_main[start - 1: end - 1], shuffle=True,
+    X1_train, X1_test, Y1_train, Y1_test = train_test_split(X, Y1_main[start - 1: end - 1],
                                                             random_state=1, test_size=0.2,
                                                             stratify=Y0_main[start - 1: end - 1])
     X0_testList.append(X0_test)
@@ -151,10 +138,17 @@ for i in range(1,33):
     X1_testList.append(X1_test)
     Y1_testList.append(Y1_test)
 
+    '''######NOTE THAT:
+        To use callbacks you will need to uncomment the next line 
+        and add to every fit function the parameter: callbacks = [callback]
+    '''
+
+    # callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=7, restore_best_weights=True)
+
     cnn_valence_model.fit(X0_train, Y0_train, epochs=50, batch_size=10, verbose=1,
-                          validation_data=(X0_test, Y0_test), callbacks=[callback])
+                          validation_data=(X0_test, Y0_test))
     cnn_arousal_model.fit(X1_train, Y1_train, epochs=50, batch_size=10, verbose=1,
-                          validation_data=(X1_test, Y1_test), callbacks=[callback])
+                          validation_data=(X1_test, Y1_test))
 
 
 
@@ -166,7 +160,3 @@ for i in range(len(X1_testList)):
     print('Arousal of test ' + str(i))
     arousals.append(cnn_arousal_model.evaluate(X1_testList[i], Y1_testList[i])[1])
     print(str(arousals[i]))
-
-
-print('Valency Average = ' + str(sum(valencies[:, 1])/len(valencies)))
-print('Arousal Average = ' + str(sum(arousals[:, 1])/len(arousals)))
