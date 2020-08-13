@@ -51,7 +51,7 @@ for i in range(32):
     scr = Model.score(X_test, Y_test)
     adaboostDB4v += scr
     print('Velancy Accuracy Adaboost On Wavelet Transform Using db4: ', scr)
-    X_train, X_test, Y_train, Y_test = train_test_split(Xno[i*40:(i+1)*40], Y[i*40:(i+1)*40], test_size=0.2,random_state=5)
+    X_train, X_test, Y_train, Y_test = train_test_split(Xno[i*40:(i+1)*40], Yno[i*40:(i+1)*40], test_size=0.2,random_state=5)
     Model = AdaBoostClassifier(DecisionTreeClassifier(max_depth=30), n_estimators=60)
     Model.fit(X_train, Y_train)
     scr = Model.score(X_test, Y_test)
@@ -73,7 +73,7 @@ for i in range(32):
     scr = Model.score(X_test, Y_test)
     print('Velancy Accuracy Adaboost On Wavelet Transform Using db10 : ', scr)
     adaboostDB10v += scr
-    X_train, X_test, Y_train, Y_test = train_test_split(Xno[i*40:(i+1)*40], Y[i*40:(i+1)*40], test_size=0.2, random_state=5)
+    X_train, X_test, Y_train, Y_test = train_test_split(Xno[i*40:(i+1)*40], Yno[i*40:(i+1)*40], test_size=0.2, random_state=5)
     Model = AdaBoostClassifier(DecisionTreeClassifier(max_depth=150), n_estimators=150)
     Model.fit(X_train, Y_train)
     scr = Model.score(X_test, Y_test)
@@ -95,7 +95,7 @@ for i in range(32):
     scr = Model.score(X_test, Y_test)
     adaboostPSv += scr
     print('Velancy Accuracy Adaboost On Wavelet Transform Using db4 and PSD : ', scr)
-    X_train, X_test, Y_train, Y_test = train_test_split(Xno[i*40:(i+1)*40], Y[i*40:(i+1)*40], test_size=0.2, random_state=5)
+    X_train, X_test, Y_train, Y_test = train_test_split(Xno[i*40:(i+1)*40], Yno[i*40:(i+1)*40], test_size=0.2, random_state=5)
     Model = AdaBoostClassifier(DecisionTreeClassifier(max_depth=100), n_estimators=100)
     Model.fit(X_train, Y_train)
     scr = Model.score(X_test, Y_test)
