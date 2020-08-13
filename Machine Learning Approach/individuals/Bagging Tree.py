@@ -51,11 +51,11 @@ for i in range(32):
     scr = Model.score(X_test, Y_test)
     DB4V += scr
     print('Velancy Accuracy Bagging Tree On Wavelet Transform Using db4: ', scr)
-    # X_train, X_test, Y_train, Y_test = train_test_split(Xno[i*40:(i+1)*40], Yno[i*40:(i+1)*40], test_size=0.2,random_state=5)
-    # Model = BaggingClassifier(base_estimator=svm.SVC(), n_estimators=15).fit(X_train, Y_train)
-    # scr = Model.score(X_test, Y_test)
-    # DB4 += scr
-    # print('Arosal Accuracy Bagging Tree On Wavelet Transform Using db4: ', scr)
+    X_train, X_test, Y_train, Y_test = train_test_split(Xno[i*40:(i+1)*40], Yno[i*40:(i+1)*40], test_size=0.2,random_state=5)
+    Model = BaggingClassifier(base_estimator=svm.SVC(), n_estimators=15).fit(X_train, Y_train)
+    scr = Model.score(X_test, Y_test)
+    DB4 += scr
+    print('Arosal Accuracy Bagging Tree On Wavelet Transform Using db4: ', scr)
 Xno.clear()
 
 with open(FeaturePath+"featuresHorizontal-db10.csv") as f:
@@ -73,11 +73,11 @@ for i in range(32):
     scr = Model.score(X_test, Y_test)
     DB10V += scr
     print('Velancy Accuracy Bagging Tree On Wavelet Transform Using db10 : ', scr)
-    # X_train, X_test, Y_train, Y_test = train_test_split(Xno[i*40:(i+1)*40], Yno[i*40:(i+1)*40], test_size=0.2,random_state=5)
-    # Model = BaggingClassifier(base_estimator=svm.SVC(kernel='rbf', C=0.1, gamma='scale', degree=5), n_estimators=15).fit(X_train, Y_train)
-    # scr = Model.score(X_test, Y_test)
-    # DB10 += scr
-    # print('Arosal Accuracy Bagging Tree On Wavelet Transform Using db10 : ', scr)
+    X_train, X_test, Y_train, Y_test = train_test_split(Xno[i*40:(i+1)*40], Yno[i*40:(i+1)*40], test_size=0.2,random_state=5)
+    Model = BaggingClassifier(base_estimator=svm.SVC(kernel='rbf', C=0.1, gamma='scale', degree=5), n_estimators=15).fit(X_train, Y_train)
+    scr = Model.score(X_test, Y_test)
+    DB10 += scr
+    print('Arosal Accuracy Bagging Tree On Wavelet Transform Using db10 : ', scr)
 Xno.clear()
 
 
@@ -96,11 +96,11 @@ for i in range(32):
     scr = Model.score(X_test, Y_test)
     PSV += scr
     print('Velancy Accuracy Bagging Tree On Wavelet Transform Using db4 and PSD : ', scr)
-    # X_train, X_test, Y_train, Y_test = train_test_split(Xno[i*40:(i+1)*40], Yno[i*40:(i+1)*40], test_size=0.2,random_state=5)
-    # Model = BaggingClassifier(base_estimator=svm.SVC(kernel='rbf', C=1, gamma='scale', degree=5), n_estimators=15).fit(X_train, Y_train)
-    # scr = Model.score(X_test, Y_test)
-    # PS += scr
-    # print('Arosal Accuracy Bagging Tree On Wavelet Transform Using db4 and PSD : ', scr)
+    X_train, X_test, Y_train, Y_test = train_test_split(Xno[i*40:(i+1)*40], Yno[i*40:(i+1)*40], test_size=0.2,random_state=5)
+    Model = BaggingClassifier(base_estimator=svm.SVC(kernel='rbf', C=1, gamma='scale', degree=5), n_estimators=15).fit(X_train, Y_train)
+    scr = Model.score(X_test, Y_test)
+    PS += scr
+    print('Arosal Accuracy Bagging Tree On Wavelet Transform Using db4 and PSD : ', scr)
 Xno.clear()
 
 print('Average Velancy Accuracy Bagging Tree On Wavelet Transform Using db4: ', DB4V/32)
